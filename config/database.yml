@@ -1,0 +1,27 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  database: global_presentation_dev
+  username: global_presentation_dev
+  password: global_presentation_dev
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] || 'postgres://test_db:test_db@localhost/test_db' %>
+
+docker:
+  <<: *default
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  database: <%= ENV['DB_DB'] || 'global_presentation' %>
+  username: <%= ENV['DB_USER'] || 'global_presentation' %>
+  password: <%= ENV['DB_PASS'] || 'global_presentation' %>
